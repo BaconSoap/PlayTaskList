@@ -30,8 +30,8 @@ class TaskController @Inject() (taskService: TaskService) extends Controller {
         BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toJson(errors)))
       },
       task => {
-        //Task.save(place)
-        Ok(Json.obj("status" ->"OK", "message" -> ("Task with text '"+task.text+"' saved.") ))
+        val newTask = taskService.create(task)
+        Ok(Json.obj("status" ->"OK", "message" -> (s"Task with id '${newTask.id}" + "' saved.") ))
       }
     )
   }
