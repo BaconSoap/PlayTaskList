@@ -12,11 +12,21 @@ import play.api.db._
   * Created by andrewvarnerin on 2/5/17.
   */
 class TaskService @Inject() (val dbApi: DBApi) {
-  def list(): List[Task] = {
-    List(Task(1, "do something"), Task(2, "Do Nothing"))
+  val db = dbApi.database("default")
+
+  val simple: RowParser[Task] = {
+    get[Int]("id") ~ get[String]("text") map {
+      case id~text => Task(id, text)
+    }
   }
+
+  def list(): List[Task] = {
+    db.withConnection { implicit c =>
+      SQL("SELECT id, text FROM tasks ORDER BY id DESC").as(simple *)
+    }
+  }
+
   def count(): Int = {
-    val db = dbApi.database("default")
     db.withConnection { implicit c =>
       SQL("select count(*) from tasks").as(SqlParser.int(1).single)
     }
