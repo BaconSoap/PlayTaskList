@@ -19,6 +19,10 @@ class TaskController @Inject() (taskService: TaskService) extends Controller {
     Ok( Json.toJson(taskService.list()))
   }
 
+  def count = Action {
+    Ok(taskService.count().toString)
+  }
+
   def saveTask: Action[JsValue] = Action(BodyParsers.parse.json) { request =>
     val taskResult = request.body.validate[Task]
     taskResult.fold(
