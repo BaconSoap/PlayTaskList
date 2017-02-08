@@ -15,9 +15,9 @@
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    <div class="row">
+    <div class="row" ng-controller="taskCtrl as ctrl">
         <h3>testing @message</h3>
-
+{{ctrl.blah}}
     </div>
 
 }
