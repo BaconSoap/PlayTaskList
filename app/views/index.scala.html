@@ -17,7 +17,9 @@
      *@
     <div class="row" ng-controller="taskCtrl as ctrl">
         <h3>testing @message</h3>
-{{ctrl.blah}}
+        <ul>
+            <li ng-repeat="task in ctrl.tasks" style="list-style: none">{{task.id}}: {{task.text}}</li>
+        </ul>
     </div>
 
 }
