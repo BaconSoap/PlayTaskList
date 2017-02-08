@@ -36,5 +36,9 @@ class TaskController @Inject() (taskService: TaskService) extends Controller {
     )
   }
 
+  def getTask(id: Int) = Action {
+    Ok(Json.toJson(taskService.getTask(id)))
+  }
+
 
 }

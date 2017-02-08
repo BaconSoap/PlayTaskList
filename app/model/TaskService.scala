@@ -26,12 +26,21 @@ class TaskService @Inject() (val dbApi: DBApi) {
     }
   }
 
+  /**
+    * get a
+    * @return
+    */
   def count(): Int = {
     db.withConnection { implicit c =>
       SQL("select count(*) from tasks").as(SqlParser.int(1).single)
     }
   }
 
+  /**
+    * Saves a task in the db
+    * @param task Task to save. task.id will be ignored
+    * @return a new Task wih the id field populated
+    */
   def create(task: Task): Task = {
     val insertSql = "INSERT INTO tasks (text) VALUES ({text})"
     val idMaybe: Option[Long] = db.withConnection {implicit c =>
@@ -46,6 +55,11 @@ class TaskService @Inject() (val dbApi: DBApi) {
     task.copy(id = id.toInt)
   }
 
+  /**
+    * Retrieve a task from the db by its id
+    * @param id pk of the task to look up
+    * @return
+    */
   def getTask(id: Int): Task = {
     db.withConnection {implicit c =>
       SQL("SELECT id, text FROM tasks WHERE id = {id}").on("id" -> id).as(simple.single)
