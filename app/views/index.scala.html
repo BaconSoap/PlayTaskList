@@ -9,14 +9,14 @@
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
+@main("Home") {
 
     @*
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
     <div class="row" ng-controller="taskCtrl as ctrl">
-        <h3>testing @message</h3>
+        <h3>testing</h3>
         <ul>
             <li ng-repeat="task in ctrl.tasks" style="list-style: none">{{task.id}}: {{task.text}}</li>
         </ul>
