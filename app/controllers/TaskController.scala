@@ -31,7 +31,7 @@ class TaskController @Inject() (taskService: TaskService) extends Controller {
       },
       task => {
         val newTask = taskService.create(task)
-        Ok(Json.obj("status" ->"OK", "message" -> (s"Task with id '${newTask.id}" + "' saved.") ))
+        Ok(Json.obj("status" ->"OK", "message" -> (s"Task with id '${newTask.id}" + "' saved."), "newTask" -> newTask ))
       }
     )
   }
